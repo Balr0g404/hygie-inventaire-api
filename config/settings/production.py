@@ -2,13 +2,16 @@ import os
 
 from .base import *
 
+if SECRET_KEY == "change-me":
+    raise RuntimeError("DJANGO_SECRET_KEY must be set in production.")
+
 DEBUG = False
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-SECURE_HSTS_SECONDS = 60
+SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
