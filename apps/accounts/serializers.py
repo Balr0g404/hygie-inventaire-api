@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "email", "full_name", "role", "is_active", "is_staff", "is_superuser")
-        read_only_fields = ("id", "is_staff", "is_superuser")
+        read_only_fields = ("id", "is_active", "is_staff", "is_superuser")
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -21,11 +21,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
     def create(self, validated_data):
-        password = validated_data.pop("password")
-        user = User.objects.create_user(**validated_data)
-        user.set_password(password)
-        user.save()
-        return user
+        return User.objects.create_user(password=validated_data.pop("password"), **validated_data)
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
