@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Django DRF Boilerplate
 
 Ce dépôt fournit un squelette Django + Django REST Framework pensé pour démarrer rapidement
