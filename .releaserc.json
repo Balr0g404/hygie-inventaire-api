@@ -1,0 +1,15 @@
+{
+  "branches": ["master"],
+  "tagFormat": "api-v${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/changelog", { "changelogFile": "CHANGELOG.md" }],
+    ["@semantic-release/exec", { "prepareCmd": "echo ${nextRelease.version} > VERSION" }],
+    ["@semantic-release/git", {
+      "assets": ["CHANGELOG.md", "VERSION"],
+      "message": "chore(release): api ${nextRelease.version} \n\n${nextRelease.notes}"
+    }],
+    "@semantic-release/github"
+  ]
+}

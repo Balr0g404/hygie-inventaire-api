@@ -205,3 +205,23 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+/node_modules
+
+# Django static/media (si tu les génères en local)
+staticfiles/
+media/
+
+# OS / editor
+.DS_Store
+
+# Logs / runtime
+*.pid
+
+# Node / release
+.npmrc
+npm-debug.log*
+
+*.local.yml
+docker-compose.override.yml
+
