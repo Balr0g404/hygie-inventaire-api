@@ -10,6 +10,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # API v1
     path("api/v1/", include("apps.accounts.urls")),
+    path("api/v1/", include("apps.organizations.urls")),
+    path("api/v1/", include("apps.inventory.urls")),
     # Core endpoints (health/readiness/version)
     path("api/v1/", include("apps.core.urls")),
     # OpenAPI / Docs
