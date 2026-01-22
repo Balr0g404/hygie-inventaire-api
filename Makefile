@@ -6,8 +6,8 @@ SHELL := /bin/bash
 
 DC ?= docker compose
 
-API_SERVICE ?= hygie-api-1
-DB_SERVICE  ?= hygie-db-1
+API_SERVICE ?= api
+DB_SERVICE  ?= db
 
 DJANGO_SETTINGS ?= config.settings
 DJANGO_TEST_SETTINGS ?= config.settings
@@ -81,23 +81,31 @@ manage: ## Run a Django management command: make manage cmd="check"
 
 .PHONY: migrate
 migrate: ## Apply migrations
-	@$(DC) exec -e DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS) $(API_SERVICE) $(MANAGE) migrate
+	@$(DC) exec -e $(API_SERVICE) $(MANAGE) migrate
 
 .PHONY: makemigrations
 makemigrations: ## Create migrations: make makemigrations app=inventory
-	@$(DC) exec -e DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS) $(API_SERVICE) $(MANAGE) makemigrations $(app)
+	@$(DC) exec -e $(API_SERVICE) $(MANAGE) makemigrations $(app)
 
 .PHONY: superuser
 superuser: ## Create a superuser
-	@$(DC) exec -e DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS) $(API_SERVICE) $(MANAGE) createsuperuser
+	@$(DC) exec -e $(API_SERVICE) $(MANAGE) createsuperuser
 
 .PHONY: shell
 shell: ## Open Django shell
-	@$(DC) exec -e DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS) $(API_SERVICE) $(MANAGE) shell
+	@$(DC) exec -e  $(API_SERVICE) $(MANAGE) shell
 
 .PHONY: run
 run: ## Run Django dev server (inside container)
-	@$(DC) exec -e DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS) $(API_SERVICE) $(MANAGE) runserver 0.0.0.0:8000
+	@$(DC) exec -e $(API_SERVICE) $(MANAGE) runserver 0.0.0.0:8000
+
+.PHONY: seed
+seed: ## Seed demo data (CRF)
+	docker compose exec api python manage.py seed_demo_crf
+
+.PHONY: seed-flush
+seed-flush: ## Flush + seed demo data (CRF)
+	docker compose exec api python manage.py seed_demo_crf --flush
 
 # -----------------------------------------------------------------------------
 # Tests
