@@ -43,7 +43,7 @@ class LogoutView(generics.GenericAPIView):
             token.blacklist()
         except Exception:
             return Response({"detail": "Token invalide."}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_205_RESET_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class MeView(generics.RetrieveUpdateAPIView):

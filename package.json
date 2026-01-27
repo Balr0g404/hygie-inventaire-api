@@ -9,8 +9,8 @@
     "release": "semantic-release"
   },
   "repository": {
-  "type": "git",
-  "url": "git+ssh://git@github.com/Balr0g404/hygie-inventaire-api.git"
+    "type": "git",
+    "url": "git+ssh://git@github.com/Balr0g404/hygie-inventaire-api.git"
   },
   "keywords": [],
   "author": "",
