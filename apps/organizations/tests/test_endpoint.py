@@ -33,7 +33,9 @@ def test_organization_crud():
 
 @pytest.mark.django_db
 def test_structure_and_membership_crud():
-    user = get_user_model().objects.create_user(email="user@example.com", password="passw0rd!")
+    user = get_user_model().objects.create_superuser(
+        email="admin@example.com", password="passw0rd!"
+    )
     other_user = get_user_model().objects.create_user(
         email="other@example.com", password="passw0rd!"
     )

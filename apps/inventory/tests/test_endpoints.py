@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 
 from apps.inventory.models import InventoryLine, StockMovement
-from apps.organizations.models import Organization, Structure
+from apps.organizations.models import Membership, Organization, Structure
 
 
 @pytest.mark.django_db
@@ -14,6 +14,11 @@ def test_inventory_crud_endpoints():
 
     org = Organization.objects.create(name="Organisation", slug="org")
     structure = Structure.objects.create(organization=org, level="LOCAL", name="UL 01")
+    Membership.objects.create(
+        user=user,
+        structure=structure,
+        role=Membership.Role.REFERENT,
+    )
 
     item_resp = client.post(
         "/api/v1/items/",
