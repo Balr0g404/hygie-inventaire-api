@@ -6,9 +6,7 @@ from typing import Any
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.utils.text import slugify
 
-from apps.organizations.models import Membership, Organization, Structure
 from apps.inventory.models import (
     Batch,
     Container,
@@ -20,6 +18,7 @@ from apps.inventory.models import (
     Site,
     StockLine,
 )
+from apps.organizations.models import Membership, Organization, Structure
 
 
 @dataclass(frozen=True)
